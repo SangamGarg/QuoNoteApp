@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_notification"
+    android:orientation="vertical"
+    tools:context=".ui.explore.DashboardFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/quoteLayout"
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background2"
+            android:hint="Search For Any Images"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/color1"
+            app:hintTextColor="@color/color1"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETSearchQuote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:background="@drawable/button_background2"
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:drawablePadding="20dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSearchQuote"
+                android:layout_width="wrap_content"
+                android:elevation="30dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/dialogbox_background"
+                android:text="Search"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/btnRefreshQuote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="30dp"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_refresh_24"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>

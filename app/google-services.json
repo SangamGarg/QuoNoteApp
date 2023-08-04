@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397932476032",
+    "project_id": "quonote-d5cf8",
+    "storage_bucket": "quonote-d5cf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397932476032:android:0dfd3389e4860162091865",
+        "android_client_info": {
+          "package_name": "com.sangam.quonote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397932476032-2crgtpjlv6kn8henoiuijkocfdee1m33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUtY4ZMacZmFT7A7NmhzeG3nu8a7v_478"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397932476032-2crgtpjlv6kn8henoiuijkocfdee1m33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

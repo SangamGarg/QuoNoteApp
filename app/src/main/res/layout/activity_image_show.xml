@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".explore.ImageShowActivity">
+
+
+
+    <TextView
+        android:id="@+id/textCloseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:drawableStart="@drawable/ic_baseline_close_24"
+        android:fontFamily="@font/castoro"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="50dp"
+        android:elevation="50dp"
+        android:textColor="#F23D3D"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imagePexelsApi" />
+
+    <ImageView
+
+        android:id="@+id/imagePexelsApi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDownloadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        android:background="@drawable/button_sign"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

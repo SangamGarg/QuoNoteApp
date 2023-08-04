@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/savetofavtxt"
+            android:layout_width="match_parent"
+            android:drawableStart="@drawable/ic_baseline_favorite_24_red"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:drawablePadding="20dp"
+            android:text="Add To Favourites"
+            android:textColor="#D72424"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/deletequotetxt"
+            android:drawableStart="@drawable/ic_baseline_delete_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:layout_margin="20dp"
+            android:layout_alignParentEnd="true"
+            android:text="Delete"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+</LinearLayout>

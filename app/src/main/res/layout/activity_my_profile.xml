@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_notification"
+    android:orientation="vertical"
+    tools:context=".profile.MyProfileActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_gradient">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/circles" />
+
+                <TextView
+                    android:id="@+id/textViewProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/castoro"
+                    android:text="My Profile"
+                    android:textColor="#00BCD4"
+                    android:textSize="40sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewProfile"
+                    android:layout_centerHorizontal="true">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageViewProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@drawable/profile"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/constraint"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/castoro"
+                    android:hint="Name"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/textName"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/castoro"
+                    android:hint="Email"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textPhoneNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textEmail"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/castoro"
+                    android:hint="PhoneNo"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="30dp">
+
+                <TextView
+                    android:id="@+id/editNAmeAndPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_curve"
+                    android:drawableStart="@drawable/ic_baseline_edit_24"
+                    android:drawablePadding="30dp"
+                    android:elevation="40dp"
+                    android:padding="10dp"
+                    android:text="Edit My Name And Phone"
+                    android:textColor="@color/color1"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/textUpdatePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editNAmeAndPhone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_curve"
+                    android:drawableStart="@drawable/ic_baseline_edit_24"
+                    android:drawablePadding="30dp"
+                    android:elevation="40dp"
+                    android:padding="10dp"
+                    android:text="Update Password"
+                    android:textColor="@color/color1"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textChoose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textUpdatePassword"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_curve"
+                    android:drawableStart="@drawable/ic_baseline_edit_24"
+                    android:drawablePadding="30dp"
+                    android:elevation="40dp"
+                    android:padding="10dp"
+                    android:text="Choose Profile Image"
+                    android:textColor="@color/color1"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/UploadImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textChoose"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_curve"
+                    android:drawableStart="@drawable/ic_baseline_edit_24"
+                    android:drawablePadding="30dp"
+                    android:elevation="40dp"
+                    android:padding="10dp"
+                    android:text="Upload Profile Image"
+                    android:textColor="@color/color1"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/textDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_sign"
+                android:drawableTop="@drawable/ic_baseline_delete_24"
+                android:drawableTint="#F63A3A"
+                android:text="Delete My Account"
+                android:textColor="#F63A3A" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

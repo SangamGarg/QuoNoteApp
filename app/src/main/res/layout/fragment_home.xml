@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_notification"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationViewsave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            android:elevation="30dp"
+            app:lottie_rawRes="@raw/saved"
+            app:lottie_speed="2" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/castoro"
+        android:gravity="center"
+        android:text="Your Daily Quote"
+        android:layout_margin="15dp"
+        android:textColor="@color/color1"
+        android:textSize="35sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/quoteLayout"
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/button_background2"
+        android:hint="Write Your Quote Here"
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/color1"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etWrite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background2"
+            android:drawableStart="@drawable/ic_baseline_edit_24"
+            android:drawablePadding="20dp"
+            android:inputType="textCapWords"
+            android:paddingBottom="20dp"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnshow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/dialogbox_background"
+        android:elevation="30dp"
+        android:padding="10dp"
+        android:text="Show On Board"
+        android:textColor="@color/color1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/quoteLayout" />
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="15dp"
+        android:background="@color/color1"
+        app:layout_constraintTop_toBottomOf="@id/btnshow"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textSaveToMyQuotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:drawableStart="@drawable/ic_baseline_save_alt_24"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/castoro"
+        android:text="Save"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline6" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/textSaveToMyQuotes"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="33dp"
+            app:cardMaxElevation="50dp"
+            app:cardPreventCornerOverlap="true">
+            <TextView
+                android:id="@+id/txtShow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/castoro"
+                android:text="Show Your Quote Here"
+                android:textColor="@color/black"
+                android:textIsSelectable="true"
+                android:textSize="25sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+</androidx.constraintlayout.widget.ConstraintLayout>

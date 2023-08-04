@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">QuoNote</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Explore</string>
+    <string name="title_notifications">Me</string>
+    <string name="about_us">"Hello, I'm Sangam Garg, the developer of this app. As a passionate coder and technology enthusiast, I designed and built this app with the aim to provide users with a seamless and enjoyable experience. QuoNote is the result of my dedication to creating a platform that offers inspirational quotes and images to uplift your spirits and brighten your day.
+
+With a love for programming and a deep interest in mobile app development, I embarked on this journey to create an app that not only showcases beautiful images but also lets users discover meaningful quotes to motivate and inspire them. I believe in the power of positivity and wanted to share it with others through this app.
+
+Throughout the development process, I have put my heart and soul into crafting every aspect of QuoNote. I hope that you find the app valuable and that it brings joy to your life. Your support and feedback mean the world to me, and I'm committed to continuously improving QuoNote to make it the best experience for you.
+
+Thank you for being a part of this journey with me. If you have any suggestions, questions, or just want to say hello, feel free to reach out to me through the app's Feedback section.
+
+Enjoy QuoNote, and remember to always stay positive and inspired!
+
+Best regards,
+Sangam Garg"</string>
+</resources>
