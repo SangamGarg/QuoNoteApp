@@ -339,9 +339,7 @@ class MyProfileActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@MyProfileActivity, "Cannot Load Data", Toast.LENGTH_SHORT)
-                    .show()
-//                progressDialog.dismiss()
+
             }
 
         })

@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +18,7 @@ import java.io.File
 class ImageShowActivity : AppCompatActivity() {
     lateinit var imageUrl: String
     lateinit var imageSearch: String
+    lateinit var lottie: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +29,12 @@ class ImageShowActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.textCloseImage)
         val button = findViewById<Button>(R.id.btnDownloadImage)
         Glide.with(this).load(imageUrl).into(imageView)
+        lottie = findViewById(R.id.lottieAnimationViewsaveImage)
         textView.setOnClickListener {
             finish()
         }
         button.setOnClickListener {
-
+            lottie.visibility = View.VISIBLE
             downloadImage(this, imageUrl, imageSearch.toString())
 
         }
@@ -47,11 +50,11 @@ class ImageShowActivity : AppCompatActivity() {
         request.setDescription("Downloading Image")
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         request.setDestinationInExternalPublicDir(
-            Environment.DIRECTORY_PICTURES,
-            File.separator + fileName + ".jpg"
+            Environment.DIRECTORY_PICTURES, File.separator + fileName + ".jpg"
         )
 
         downloadManager.enqueue(request)
+
         Toast.makeText(this, "Image Downloaded", Toast.LENGTH_SHORT).show()
 
     }

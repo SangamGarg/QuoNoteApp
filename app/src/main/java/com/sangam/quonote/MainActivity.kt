@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(1200)
+        Thread.sleep(100)
         installSplashScreen()
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
-      //  showWelcome()
+       // showWelcome()
 
         val navView: BottomNavigationView = binding.navView
 

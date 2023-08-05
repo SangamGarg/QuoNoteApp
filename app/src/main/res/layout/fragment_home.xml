@@ -8,19 +8,19 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieAnimationViewsave"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            android:elevation="30dp"
-            app:lottie_rawRes="@raw/saved"
-            app:lottie_speed="2" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewsave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        android:elevation="30dp"
+        app:lottie_rawRes="@raw/saved"
+        app:lottie_speed="2" />
 
 
     <TextView

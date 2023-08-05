@@ -7,7 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".explore.ImageShowActivity">
 
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewsaveImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/saved"
+        app:lottie_speed="1.5" />
 
     <TextView
         android:id="@+id/textCloseImage"

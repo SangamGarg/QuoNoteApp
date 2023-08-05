@@ -30,12 +30,9 @@ class NotificationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
@@ -64,8 +61,7 @@ class NotificationsFragment : Fragment() {
         binding.TextAboutUs.setOnClickListener {
             val alertDialog = AlertDialog.Builder(requireContext())
             val view = layoutInflater.inflate(R.layout.about_us_dialogbox, null)
-            alertDialog.setView(view)
-                .setCancelable(true)
+            alertDialog.setView(view).setCancelable(true)
 
             alertDialog.create().show()
         }
@@ -79,23 +75,25 @@ class NotificationsFragment : Fragment() {
 
         return root
     }
+
     private fun giveFeedback() {
         val alertDialog = AlertDialog.Builder(requireContext())
         val view = layoutInflater.inflate(R.layout.dialog_feedback, null)
         alertDialog.setView(view)
         alertDialog.setCancelable(true)
-        alertDialog.create().show()
+        val dialog = alertDialog.create()
+        dialog.show()
         val feedback = view.findViewById<EditText>(R.id.ETFeedback)
         val button = view.findViewById<Button>(R.id.submitButton)
         button.setOnClickListener {
+            dialog.dismiss()
             val userfeed = feedback.text.toString()
             database = FirebaseDatabase.getInstance()
             val dbreference =
-                database.reference.child("Fedbacks").child(firebaseAuth.currentUser!!.uid)
+                database.reference.child("Feedbacks").child(firebaseAuth.currentUser!!.uid)
                     .setValue(userfeed).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(activity, "Feedback Given", Toast.LENGTH_SHORT).show()
-                            alertDialog.create().dismiss()
                         } else {
                             Toast.makeText(
                                 activity,
@@ -106,6 +104,7 @@ class NotificationsFragment : Fragment() {
                     }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
