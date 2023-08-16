@@ -3,6 +3,8 @@ package com.sangam.quonote.profile
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -68,44 +70,48 @@ class AllQuotesActivity : AppCompatActivity() {
     private fun addToFavourite(quote: String? = null) {
         val lottie = findViewById<View>(R.id.lottieAnimationViewFav)
         lottie.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                .child(auth.currentUser!!.uid).child("Favourites").child(quote!!)
+            val quote1 = UserQuoteDataClass(quote)
+            databaseReference.setValue(quote1).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    lottie.visibility = View.GONE
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-            .child(auth.currentUser!!.uid).child("Favourites").child(quote!!)
-        val quote1 = UserQuoteDataClass(quote)
-        databaseReference.setValue(quote1).addOnCompleteListener {
-            if (it.isSuccessful) {
-                lottie.visibility = View.GONE
-
-                Toast.makeText(this, "Added To Favourites", Toast.LENGTH_SHORT).show()
-                //     binding.etWrite.text?.clear()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Error: ${it.exception?.message.toString()}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    Toast.makeText(this, "Added To Favourites", Toast.LENGTH_SHORT).show()
+                    //     binding.etWrite.text?.clear()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Error: ${it.exception?.message.toString()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-        }
+        }, 1000)
+
 
     }
 
     private fun deleteQuote(quote: String? = null) {
         val lottie = findViewById<View>(R.id.lottieAnimationViewDelete)
         lottie.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                .child(auth.currentUser!!.uid).child("Quotes").child(quote!!)
+            databaseReference.removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    lottie.visibility = View.GONE
+                    Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show()
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-            .child(auth.currentUser!!.uid).child("Quotes").child(quote!!)
-        databaseReference.removeValue().addOnCompleteListener {
-            if (it.isSuccessful) {
-                lottie.visibility = View.GONE
-                Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT)
+                        .show()
 
-            } else {
-                Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT)
-                    .show()
-
+                }
             }
-        }
+        }, 1000)
+
 
     }
 
@@ -150,7 +156,7 @@ class AllQuotesActivity : AppCompatActivity() {
 
                     myAdapter.setOnItemClickListener(object : MyAdapterQuote.onItemClickListener {
                         override fun onItemClick(quote: String?) {
-                            Log.d("saregama",quote!!)
+                            Log.d("saregama", quote!!)
 //                            Toast.makeText(this@AllQuotesActivity, quote, Toast.LENGTH_SHORT).show()
                             dialogBox(quote)
                         }

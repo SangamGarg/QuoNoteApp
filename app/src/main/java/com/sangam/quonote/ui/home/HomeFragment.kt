@@ -1,19 +1,22 @@
 package com.sangam.quonote.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.sangam.quonote.UserQuoteDataClass
-import com.sangam.quonote.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.sangam.quonote.UserQuoteDataClass
+import com.sangam.quonote.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
@@ -35,6 +38,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         firebaseAuth = FirebaseAuth.getInstance()
+        binding.cardView.animate().apply {
+            duration = 1500
+            rotationXBy(360f)
+        }
         binding.btnshow.setOnClickListener {
             if (binding.etWrite.text.toString().trim().isNotEmpty()) {
                 getData()
@@ -45,65 +52,69 @@ class HomeFragment : Fragment() {
             }
         }
         loadData()
+        binding.textClearBoard.setOnClickListener {
+            if (binding.txtShow.text.toString().trim().isNotEmpty()) {
+                binding.lottieAnimationViewClear?.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    clearData()
+                    binding.txtShow.text = ""
+                    binding.lottieAnimationViewClear?.visibility = View.GONE
+                    Toast.makeText(activity, "Board Cleared", Toast.LENGTH_SHORT).show()
+                }, 1000)
 
-        binding.textSaveToMyQuotes.setOnClickListener {
-binding.lottieAnimationViewsave?.visibility =View.VISIBLE
-            if (binding.txtShow.text.toString().trim().isEmpty()) {
-                Toast.makeText(activity, "Add Some Quote On Board First", Toast.LENGTH_SHORT).show()
             } else {
-                databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                    .child(firebaseAuth.currentUser!!.uid).child("Quotes")
-                    .child(binding.txtShow.text.trim().toString())
+                Toast.makeText(activity, "Board Is Already Empty", Toast.LENGTH_SHORT).show()
+            }
 
-                val quote = UserQuoteDataClass(binding.txtShow.text.trim().toString())
-
-                databaseReference.setValue(quote).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        binding.lottieAnimationViewsave?.visibility =View.GONE
-                        Toast.makeText(activity, "Added To My Quotes", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.d("ErrorOfSave", it.exception?.message.toString())
-                        Toast.makeText(
-                            activity,
-                            "Error: ${it.exception?.message.toString()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
+        }
+        binding.btnShare.setOnClickListener {
+            if (binding.txtShow.text.toString().trim().isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.setType("text/plain")
+                intent.putExtra(Intent.EXTRA_TEXT, binding.txtShow.text.toString().trim())
+                startActivity(intent)
+            } else {
+                Toast.makeText(activity, "Add Some Quote On Board First", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
+        binding.textSaveToMyQuotes.setOnClickListener {
+            if (binding.txtShow.text.toString().trim().isEmpty()) {
+                Toast.makeText(activity, "Add Some Quote On Board First", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                binding.lottieAnimationViewsave?.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(firebaseAuth.currentUser!!.uid).child("Quotes")
+                        .child(binding.txtShow.text.trim().toString())
 
-//        binding.textSaveToMyFav.setOnClickListener {
-//            if (binding.txtShow.text.toString().trim().isEmpty()) {
-//                Toast.makeText(activity, "Add Some Quote On Board First", Toast.LENGTH_SHORT).show()
-//            } else {
-//                databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-//                    .child(firebaseAuth.currentUser!!.uid).child("Favourites")
-//                    .child(binding.txtShow.text.trim().toString())
-//
-//                val quote1 = UserQuoteDataClass(binding.txtShow.text.trim().toString())
-//
-//                databaseReference.setValue(quote1).addOnCompleteListener {
-//                    if (it.isSuccessful) {
-//                        Toast.makeText(activity, "Added To Favourites", Toast.LENGTH_SHORT).show()
-//                        //     binding.etWrite.text?.clear()
-//                    } else {
-//                        Toast.makeText(
-//                            activity,
-//                            "Error: ${it.exception?.message.toString()}",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
+                    val quote = UserQuoteDataClass(binding.txtShow.text.trim().toString())
 
+                    databaseReference.setValue(quote).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            binding.lottieAnimationViewsave?.visibility = View.GONE
+                            Toast.makeText(activity, "Added To My Quotes", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Log.d("ErrorOfSave", it.exception?.message.toString())
+                            binding.lottieAnimationViewsave?.visibility = View.GONE
+                            Toast.makeText(
+                                activity,
+                                "Error: ${it.exception?.message.toString()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
+                        }
+                    }
+
+                }, 1000)
+            }
+
+        }
 
         return root
     }
-
 
     private fun getData() {
         val sharedPreferences =
@@ -126,7 +137,14 @@ binding.lottieAnimationViewsave?.visibility =View.VISIBLE
         sharedPreferences.getBoolean("Finished", false)
     }
 
-
+    private fun clearData() {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("sharedpreference", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.remove("shared")
+        editor.remove("Finished")
+        editor.apply()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

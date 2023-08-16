@@ -3,6 +3,8 @@ package com.sangam.quonote.profile
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -12,10 +14,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sangam.quonote.R
-import com.sangam.quonote.UserQuoteDataClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.sangam.quonote.R
+import com.sangam.quonote.UserQuoteDataClass
 
 class FavouriteActivity : AppCompatActivity() {
 
@@ -64,25 +66,29 @@ class FavouriteActivity : AppCompatActivity() {
 
         countReference.addValueEventListener(valueEventListener)
     }
+
     private fun deleteFromFavourite(quote: String? = null) {
         val lottie = findViewById<View>(R.id.lottieAnimationViewDelete)
         lottie.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                .child(auth.currentUser!!.uid).child("Favourites").child(quote!!)
+            databaseReference.removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    lottie.visibility = View.GONE
+                    Toast.makeText(this, "Removed Successfully", Toast.LENGTH_SHORT).show()
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-            .child(auth.currentUser!!.uid).child("Favourites").child(quote!!)
-        databaseReference.removeValue().addOnCompleteListener {
-            if (it.isSuccessful) {
-                lottie.visibility = View.GONE
-                Toast.makeText(this, "Removed Successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT)
+                        .show()
 
-            } else {
-                Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT)
-                    .show()
-
+                }
             }
-        }
+        }, 1000)
+
 
     }
+
     private fun dialogBox(quotename: String? = null) {
         val alertDialog = AlertDialog.Builder(this@FavouriteActivity)
         val view = layoutInflater.inflate(R.layout.removefromfav_dialog_box, null)
@@ -95,6 +101,7 @@ class FavouriteActivity : AppCompatActivity() {
             dialog.dismiss()
         }
     }
+
     private fun getFavQuotes() {
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Loading")
@@ -115,7 +122,8 @@ class FavouriteActivity : AppCompatActivity() {
                     myAdapter = MyAdapterFavourite(this@FavouriteActivity, quoteList)
                     recyclerView.adapter = myAdapter
                     progressDialog.dismiss()
-                    myAdapter.setOnItemClickListener(object : MyAdapterFavourite.onItemClickListener {
+                    myAdapter.setOnItemClickListener(object :
+                        MyAdapterFavourite.onItemClickListener {
                         override fun onItemClick(quote: String?) {
                             dialogBox(quote)
                         }

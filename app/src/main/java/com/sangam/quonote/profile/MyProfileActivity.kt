@@ -4,35 +4,64 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
-import com.sangam.quonote.R
-import com.sangam.quonote.SignInActivity
-import com.sangam.quonote.UserDataClass
-import com.sangam.quonote.databinding.ActivityMyProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.sangam.quonote.R
+import com.sangam.quonote.SignInActivity
+import com.sangam.quonote.UserDataClass
+import com.sangam.quonote.databinding.ActivityMyProfileBinding
+import java.io.File
 
 class MyProfileActivity : AppCompatActivity() {
 
+    lateinit var imageUri: Uri
     private var uri: Uri? = null
     private var storageRef = Firebase.storage
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
     lateinit var binding: ActivityMyProfileBinding
+    private val contract = registerForActivityResult(ActivityResultContracts.TakePicture()) {
+        binding.imageViewProfile.setImageURI(null)
+        binding.imageViewProfile.setImageURI(imageUri)
+        uri = imageUri
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private val requestForPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                contract.launch(imageUri)
+            } else {
+                if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
+                    showRationaleDialog()
+                } else {
+                    val message =
+                        "You've denied camera permission twice. To enable it, open app settings."
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyProfileBinding.inflate(layoutInflater)
@@ -50,10 +79,29 @@ class MyProfileActivity : AppCompatActivity() {
                     Log.d("PhotoPicker", "No media selected")
                 }
             }
-
+        binding.imageViewProfile.setOnClickListener {
+            openProfilePhoto()
+        }
+        imageUri = createImageUri()!!
         binding.textChoose.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            val alertDialog = AlertDialog.Builder(this)
+            val view = layoutInflater.inflate(R.layout.dialog_choose_image, null)
+            alertDialog.setView(view)
+            alertDialog.create().show()
+            val gallery = view.findViewById<TextView>(R.id.textOpenGallery)
+            gallery.setOnClickListener {
+                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
 
+            }
+            val camera = view.findViewById<TextView>(R.id.textOpenCamera)
+            camera.setOnClickListener {
+                if (checkPermission()) {
+                    contract.launch(imageUri)
+                } else {
+                    requestForPermission.launch(android.Manifest.permission.CAMERA)
+                }
+
+            }
 
         }
 
@@ -73,6 +121,62 @@ class MyProfileActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showRationaleDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Camera Permission")
+            .setMessage("This app requires camera permission to take profile photos. If you deny this time you have to manually go to app setting to allow permission.")
+            .setPositiveButton("Ok") { _, _ ->
+                requestForPermission.launch(android.Manifest.permission.CAMERA)
+            }
+        builder.create().show()
+    }
+
+    private fun checkPermission(): Boolean {
+        val permission = android.Manifest.permission.CAMERA
+        return ContextCompat.checkSelfPermission(
+            this, permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun createImageUri(): Uri? {
+        val image = File(applicationContext.filesDir, "profile_photos.png")
+        return FileProvider.getUriForFile(
+            applicationContext, "com.sangam.quonote.fileProvider", image
+        )
+    }
+
+    private fun openProfilePhoto() {
+        val alertDialog = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.dialog_open, null)
+        alertDialog.setView(view)
+        alertDialog.setCancelable(true)
+
+        val profile = view.findViewById<ImageView>(R.id.imgShowProfile)
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+            .child(firebaseAuth.currentUser!!.uid).child("User Image")
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val imageUrl = snapshot.child("url").getValue(String::class.java)
+                    Glide.with(this@MyProfileActivity).load(imageUrl!!).into(profile)
+                } else {
+                    Toast.makeText(
+                        this@MyProfileActivity, "No Profile Photo uploaded", Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    this@MyProfileActivity, "Cannot Load Profile Image", Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+        alertDialog.create().show()
+    }
+
     //This is the function to update the user password
     private fun updatePassword() {
         val alertDialog = AlertDialog.Builder(this)
@@ -88,8 +192,7 @@ class MyProfileActivity : AppCompatActivity() {
             if (userPass.trim().isEmpty()) {
                 password.error = "Empty Field"
             } else if (userPass.length < 6) {
-                password.error =
-                    "Enter Password More than 6 characters"
+                password.error = "Enter Password More than 6 characters"
             } else {
                 val user = Firebase.auth.currentUser
                 user?.updatePassword(userPass)?.addOnCompleteListener {
@@ -98,17 +201,13 @@ class MyProfileActivity : AppCompatActivity() {
                             this@MyProfileActivity,
                             "Password Updated Successfully",
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                         alertDialog.create().dismiss()
                         val firebaseAuth = FirebaseAuth.getInstance()
                         firebaseAuth.signOut()
                         Toast.makeText(
-                            this@MyProfileActivity,
-                            "Please Login Again",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                            this@MyProfileActivity, "Please Login Again", Toast.LENGTH_SHORT
+                        ).show()
                         val intent = Intent(this@MyProfileActivity, SignInActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -116,8 +215,7 @@ class MyProfileActivity : AppCompatActivity() {
                             this@MyProfileActivity,
                             "Error: ${it.exception?.message.toString()}",
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                         alertDialog.create().dismiss()
 
                     }
@@ -150,11 +248,8 @@ class MyProfileActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 clearData()
                 Toast.makeText(
-                    this@MyProfileActivity,
-                    "Account Deleted Successfully",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                    this@MyProfileActivity, "Account Deleted Successfully", Toast.LENGTH_SHORT
+                ).show()
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
             } else {
@@ -163,8 +258,7 @@ class MyProfileActivity : AppCompatActivity() {
                     this@MyProfileActivity,
                     "Error: ${it.exception?.message.toString()} ",
                     Toast.LENGTH_SHORT
-                )
-                    .show()
+                ).show()
 
             }
         }
@@ -196,20 +290,22 @@ class MyProfileActivity : AppCompatActivity() {
                     Glide.with(this@MyProfileActivity).load(imageUrl!!)
                         .into(binding.imageViewProfile)
                     progressDialog.dismiss()
+                    binding.imageViewProfile.animate().apply {
+                        duration = 1500
+                        rotationYBy(360f)
+                    }
                 } else {
                     Toast.makeText(
-                        this@MyProfileActivity,
-                        "No Profile Photo uploaded",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                        this@MyProfileActivity, "No Profile Photo uploaded", Toast.LENGTH_SHORT
+                    ).show()
                     progressDialog.dismiss()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@MyProfileActivity, "Cannot Load Profile Image", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(
+                    this@MyProfileActivity, "Cannot Load Profile Image", Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -244,12 +340,10 @@ class MyProfileActivity : AppCompatActivity() {
                 phone.error = "Enter Valid Phone No."
             } else {
                 val updateInfo = mapOf(
-                    "name" to username,
-                    "phone" to userphone
+                    "name" to username, "phone" to userphone
                 )
 
-                databaseReference.updateChildren(updateInfo)
-                    .addOnCompleteListener { task ->
+                databaseReference.updateChildren(updateInfo).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Data Updated Successfully", Toast.LENGTH_SHORT)
                                 .show()
@@ -258,9 +352,7 @@ class MyProfileActivity : AppCompatActivity() {
                             dialog.dismiss()
                         } else {
                             Toast.makeText(
-                                this,
-                                "Error : ${task.exception?.message}",
-                                Toast.LENGTH_SHORT
+                                this, "Error : ${task.exception?.message}", Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
@@ -284,17 +376,14 @@ class MyProfileActivity : AppCompatActivity() {
 
         val imageRef =
             storageRef.reference.child("images").child(System.currentTimeMillis().toString())
-        imageRef.putFile(uri!!)
-            .addOnSuccessListener { task ->
-                task.metadata?.reference?.downloadUrl
-                    ?.addOnSuccessListener { uri ->
+        imageRef.putFile(uri!!).addOnSuccessListener { task ->
+                task.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                         val mapImage = mapOf(
                             "url" to uri.toString()
                         )
                         databaseReference = FirebaseDatabase.getInstance().getReference("Users")
                             .child(firebaseAuth.currentUser!!.uid).child("User Image")
-                        databaseReference.setValue(mapImage)
-                            .addOnCompleteListener { task ->
+                        databaseReference.setValue(mapImage).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT)
                                         .show()
@@ -302,9 +391,7 @@ class MyProfileActivity : AppCompatActivity() {
                                     reloadActivity()
                                 } else {
                                     Toast.makeText(
-                                        this,
-                                        "${task.exception?.message}",
-                                        Toast.LENGTH_SHORT
+                                        this, "${task.exception?.message}", Toast.LENGTH_SHORT
                                     ).show()
                                     progressDialog.dismiss()
                                 }

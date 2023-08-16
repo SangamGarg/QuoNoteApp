@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.QuoNote.AppWidget.Container"
+    android:theme="@style/Theme.QuoNote.AppWidgetContainer"
+    android:layout_width="match_parent"
+    android:background="#00FFFFFF"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        style="@style/Widget.QuoNote.AppWidget.InnerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/appwidget_text"
+        android:fontFamily="@font/francois_one"
+        android:gravity="center"
+        android:backgroundTint="@color/color3"
+        android:text="@string/appwidget_text"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+</RelativeLayout>

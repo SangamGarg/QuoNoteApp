@@ -15,4 +15,8 @@ Enjoy QuoNote, and remember to always stay positive and inspired!
 
 Best regards,
 Sangam Garg"</string>
+    <string name="appwidget_text">Your Quote</string>
+    <string name="configure">Write Your Quote Here</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Show Quote</string>
 </resources>
