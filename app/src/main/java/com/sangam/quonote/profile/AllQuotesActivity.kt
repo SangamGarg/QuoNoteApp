@@ -1,6 +1,7 @@
 package com.sangam.quonote.profile
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.sangam.quonote.MyAdapterQuote
 import com.sangam.quonote.R
 import com.sangam.quonote.UserQuoteDataClass
 
@@ -103,7 +103,21 @@ class AllQuotesActivity : AppCompatActivity() {
                 if (it.isSuccessful) {
                     lottie.visibility = View.GONE
                     Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show()
+// Remove the quote from the quoteList
+                    val iterator = quoteList.iterator()
+                    while (iterator.hasNext()) {
+                        val item = iterator.next()
+                        if (item.quote == quote) {
+                            iterator.remove()
+                            break
+                        }
+                    }
 
+                    // Update the RecyclerView adapter
+                    myAdapter.notifyDataSetChanged()
+
+                    // Update the count TextView
+                    getCount()
                 } else {
                     Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT)
                         .show()
@@ -121,8 +135,19 @@ class AllQuotesActivity : AppCompatActivity() {
         alertDialog.setView(view)
         val fav = view.findViewById<TextView>(R.id.savetofavtxt)
         val delete = view.findViewById<TextView>(R.id.deletequotetxt)
+        val share = view.findViewById<TextView>(R.id.sharequotetxt)
+
         val dialog = alertDialog.create()
         dialog.show()
+        share.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.setType("text/plain")
+            intent.putExtra(Intent.EXTRA_TEXT, quotename.toString().trim())
+            startActivity(intent)
+        }
+
+
+
         fav.setOnClickListener {
             addToFavourite(quotename)
             dialog.dismiss()

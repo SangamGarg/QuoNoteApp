@@ -15,8 +15,85 @@ Enjoy QuoNote, and remember to always stay positive and inspired!
 
 Best regards,
 Sangam Garg"</string>
-    <string name="appwidget_text">Your Quote</string>
+
+    <string name="appwidget_text"></string>
     <string name="configure">Write Your Quote Here</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">Show Quote</string>
+    <string name="app_widget_description">Write Quote</string>
+    <string name="app_widget_description2">Show Quote</string>
+    <string name="default_quote"> Empty</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="spinner_array">
+        <item>Select a category</item>
+        <item>age</item>
+        <item>alone</item>
+        <item>amazing</item>
+        <item>anger</item>
+        <item>architecture</item>
+        <item>art</item>
+        <item>attitude</item>
+        <item>beauty</item>
+        <item>best</item>
+        <item>birthday</item>
+        <item>business</item>
+        <item>car</item>
+        <item>change</item>
+        <item>communications</item>
+        <item>computers</item>
+        <item>cool</item>
+        <item>courage</item>
+        <item>dad</item>
+        <item>dating</item>
+        <item>death</item>
+        <item>design</item>
+        <item>dreams</item>
+        <item>education</item>
+        <item>environmental</item>
+        <item>equality</item>
+        <item>experience</item>
+        <item>failure</item>
+        <item>faith</item>
+        <item>family</item>
+        <item>famous</item>
+        <item>fear</item>
+        <item>fitness</item>
+        <item>food</item>
+        <item>forgiveness</item>
+        <item>freedom</item>
+        <item>friendship</item>
+        <item>funny</item>
+        <item>future</item>
+        <item>god</item>
+        <item>good</item>
+        <item>government</item>
+        <item>graduation</item>
+        <item>great</item>
+        <item>happiness</item>
+        <item>health</item>
+        <item>history</item>
+        <item>home</item>
+        <item>hope</item>
+        <item>humor</item>
+        <item>imagination</item>
+        <item>inspirational</item>
+        <item>intelligence</item>
+        <item>jealousy</item>
+        <item>knowledge</item>
+        <item>leadership</item>
+        <item>learning</item>
+        <item>legal</item>
+        <item>life</item>
+        <item>love</item>
+        <item>marriage</item>
+        <item>medical</item>
+        <item>men</item>
+        <item>mom</item>
+        <item>money</item>
+        <item>morning</item>
+        <item>movies</item>
+        <item>success</item>
+    </string-array>
+
+
 </resources>

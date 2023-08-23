@@ -78,23 +78,23 @@
         app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/TextMyFavourites" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/Rate_us"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginHorizontal="16dp"-->
-    <!--        android:layout_marginTop="24dp"-->
-    <!--        android:background="@drawable/background_curve"-->
-    <!--        android:drawablePadding="20dp"-->
-    <!--        android:elevation="30dp"-->
-    <!--        android:padding="10dp"-->
-    <!--        android:text="Rate Us"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="20sp"-->
-    <!--        app:drawableStartCompat="@drawable/ic_baseline_star_24"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/guideline4"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guideline3"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/TextAbout_us" />-->
+        <TextView
+            android:id="@+id/TextRate_Us"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/background_curve"
+            android:drawablePadding="20dp"
+            android:elevation="30dp"
+            android:padding="10dp"
+            android:text="Rate Us"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_baseline_star_24"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
+            app:layout_constraintStart_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/TextAbout_us" />
 
     <TextView
         android:id="@+id/TextFeedback"
@@ -112,7 +112,7 @@
         app:drawableStartCompat="@drawable/ic_baseline_feedback_24"
         app:layout_constraintEnd_toEndOf="@id/guideline4"
         app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/TextAbout_us" />
+        app:layout_constraintTop_toBottomOf="@+id/TextRate_Us" />
     <TextView
         android:id="@+id/TextLogout"
         android:layout_width="0dp"

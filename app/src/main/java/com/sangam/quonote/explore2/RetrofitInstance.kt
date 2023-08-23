@@ -1,11 +1,11 @@
-package com.sangam.quonote.explore
+package com.sangam.quonote.explore2
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private val retrofitInstance by lazy {
-        Retrofit.Builder().baseUrl("https://api.pexels.com/v1/")
+        Retrofit.Builder().baseUrl("https://api.api-ninjas.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

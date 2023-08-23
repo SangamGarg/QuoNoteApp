@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.sangam.quonote.MyAdapterQuote
 import com.sangam.quonote.R
 import com.sangam.quonote.UserQuoteDataClass
 

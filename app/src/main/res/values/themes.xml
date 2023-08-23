@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.QuoNote" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/color4</item>
         <item name="colorPrimaryVariant">@color/color2</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="AppTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <!-- Customize other attributes here if needed -->
@@ -23,8 +24,8 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/imgsplashscreen</item>
         <item name="postSplashScreenTheme">@style/Theme.QuoNote</item>
     </style>
-    <style name="Theme.QuoNote.AppWidgetContainerParent"
-        parent="@android:style/Theme.DeviceDefault">
+
+    <style name="Theme.QuoNote.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
         <!-- Radius of the outer bound of widgets to make the rounded corners -->
         <item name="appWidgetRadius">16dp</item>
         <!--

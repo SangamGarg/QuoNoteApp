@@ -1,4 +1,4 @@
-package com.sangam.quonote
+package com.sangam.quonote.profile
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.sangam.quonote.R
+import com.sangam.quonote.UserQuoteDataClass
 
 
 class MyAdapterQuote(val context: Context, val list: List<UserQuoteDataClass>) :

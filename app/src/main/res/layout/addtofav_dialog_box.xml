@@ -7,6 +7,17 @@
     android:background="@color/white"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+        <TextView
+            android:id="@+id/sharequotetxt"
+            android:drawableStart="@drawable/ic_baseline_share_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:layout_margin="20dp"
+            android:layout_alignParentEnd="true"
+            android:text="Share"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/savetofavtxt"

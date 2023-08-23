@@ -21,7 +21,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/saved"
-        app:lottie_speed="1.5" />
+        app:lottie_speed="0.8" />
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationViewClear"
         android:layout_width="match_parent"
@@ -49,7 +49,6 @@
         android:text="Your Daily Quote"
         android:textColor="@color/color1"
         android:textSize="35sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="parent" />

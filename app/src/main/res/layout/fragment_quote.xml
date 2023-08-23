@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_notification"
+    tools:context=".explore2.QuoteFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background2"
+            android:layout_margin="20dp"
+            android:entries="@array/spinner_array"
+            android:padding="15dp" />
+
+
+        <TextView
+            android:id="@+id/textViewQuote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/castoro"
+            android:gravity="center"
+            android:hint="Quote"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/castoro"
+            android:gravity="center"
+            android:hint="Author"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRefreshQuote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_sign"
+                android:padding="10dp"
+                android:text="Refresh" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCopyquote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_sign"
+                android:padding="10dp"
+                android:text="Copy" />
+
+        </RelativeLayout>
+
+
+        <!--        <RelativeLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+
+        <!--            <androidx.appcompat.widget.AppCompatButton-->
+        <!--                android:id="@+id/btnSearchQuote"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_centerInParent="true"-->
+        <!--                android:background="@drawable/dialogbox_background"-->
+        <!--                android:elevation="30dp"-->
+        <!--                android:text="Search"-->
+        <!--                android:textColor="@color/black" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/btnRefreshQuote"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentEnd="true"-->
+        <!--                android:drawableStart="@drawable/ic_baseline_refresh_24"-->
+        <!--                android:drawablePadding="10dp"-->
+        <!--                android:elevation="30dp"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </RelativeLayout>-->
+
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/recyclerView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="20dp" />-->
+
+
+    </LinearLayout>
+
+
+</ScrollView>

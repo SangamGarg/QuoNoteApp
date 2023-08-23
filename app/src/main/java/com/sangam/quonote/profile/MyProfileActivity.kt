@@ -38,11 +38,17 @@ class MyProfileActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
     lateinit var binding: ActivityMyProfileBinding
-    private val contract = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-        binding.imageViewProfile.setImageURI(null)
-        binding.imageViewProfile.setImageURI(imageUri)
-        uri = imageUri
-    }
+    private val contract =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                binding.imageViewProfile.setImageURI(imageUri)
+                uri = imageUri
+
+            } else {
+                binding.imageViewProfile.setImageURI(uri)
+                uri = null
+            }
+        }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private val requestForPermission =
@@ -70,6 +76,7 @@ class MyProfileActivity : AppCompatActivity() {
         storageRef = FirebaseStorage.getInstance()
         getImage()
         getData()
+
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
@@ -344,18 +351,18 @@ class MyProfileActivity : AppCompatActivity() {
                 )
 
                 databaseReference.updateChildren(updateInfo).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this, "Data Updated Successfully", Toast.LENGTH_SHORT)
-                                .show()
-                            binding.textName.text = username
-                            binding.textPhoneNo.text = userphone
-                            dialog.dismiss()
-                        } else {
-                            Toast.makeText(
-                                this, "Error : ${task.exception?.message}", Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Data Updated Successfully", Toast.LENGTH_SHORT)
+                            .show()
+                        binding.textName.text = username
+                        binding.textPhoneNo.text = userphone
+                        dialog.dismiss()
+                    } else {
+                        Toast.makeText(
+                            this, "Error : ${task.exception?.message}", Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }
             }
         }
     }
@@ -377,27 +384,27 @@ class MyProfileActivity : AppCompatActivity() {
         val imageRef =
             storageRef.reference.child("images").child(System.currentTimeMillis().toString())
         imageRef.putFile(uri!!).addOnSuccessListener { task ->
-                task.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
-                        val mapImage = mapOf(
-                            "url" to uri.toString()
-                        )
-                        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                            .child(firebaseAuth.currentUser!!.uid).child("User Image")
-                        databaseReference.setValue(mapImage).addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT)
-                                        .show()
-                                    progressDialog.dismiss()
-                                    reloadActivity()
-                                } else {
-                                    Toast.makeText(
-                                        this, "${task.exception?.message}", Toast.LENGTH_SHORT
-                                    ).show()
-                                    progressDialog.dismiss()
-                                }
-                            }
+            task.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
+                val mapImage = mapOf(
+                    "url" to uri.toString()
+                )
+                databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                    .child(firebaseAuth.currentUser!!.uid).child("User Image")
+                databaseReference.setValue(mapImage).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT)
+                            .show()
+                        progressDialog.dismiss()
+                        reloadActivity()
+                    } else {
+                        Toast.makeText(
+                            this, "${task.exception?.message}", Toast.LENGTH_SHORT
+                        ).show()
+                        progressDialog.dismiss()
                     }
+                }
             }
+        }
     }
 
     private fun reloadActivity() {

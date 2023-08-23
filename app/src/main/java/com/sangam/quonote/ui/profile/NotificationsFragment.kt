@@ -1,7 +1,9 @@
 package com.sangam.quonote.ui.profile
 
 import android.app.ProgressDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,11 +71,31 @@ class NotificationsFragment : Fragment() {
             val intent = Intent(activity, AllQuotesActivity::class.java)
             startActivity(intent)
         }
-        binding.TextFeedback?.setOnClickListener {
+        binding.TextFeedback.setOnClickListener {
             giveFeedback()
+        }
+        binding.TextRateUs.setOnClickListener {
+            openPlayStoreForRating()
         }
 
         return root
+    }
+
+    private fun openPlayStoreForRating() {
+        val uri = Uri.parse("market://details?id=com.sangam.quonote")
+        val playStoreIntent = Intent(Intent.ACTION_VIEW, uri)
+        playStoreIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        try {
+            startActivity(playStoreIntent)
+        } catch (e: ActivityNotFoundException) {
+            // If Play Store app is not available, open the link in the browser
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=com.sangam.quonote")
+            )
+            startActivity(webIntent)
+        }
     }
 
     private fun giveFeedback() {
