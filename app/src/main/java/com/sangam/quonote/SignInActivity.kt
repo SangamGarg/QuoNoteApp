@@ -100,7 +100,7 @@ class SignInActivity : AppCompatActivity() {
             } else {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, com.sangam.quonote.MainActivity::class.java)
+                        val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         Toast.makeText(this, "SignIn Successful", Toast.LENGTH_SHORT).show()
                         finish()

@@ -46,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.confirmPasswordLayout.isPasswordVisibilityToggleEnabled = true
 
 
-            if (email.trim().isEmpty() || password.trim().isEmpty() || confirmpassword.trim()
+            if (email.trim().isEmpty() or password.trim().isEmpty() || confirmpassword.trim()
                     .isEmpty() || name.trim().isEmpty() || phoneno.trim().isEmpty()
             ) {
                 if (email.isEmpty()) binding.emailEt.error = "Empty Field"

@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="Not Registered Yet , Sign Up !"
+                android:text="Already Have An Account , Sign In !"
                 android:textColor="@color/black" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
