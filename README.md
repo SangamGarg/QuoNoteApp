@@ -4,6 +4,10 @@ You can also explore a vast collection of quotes from different categories and a
 This app is built using Kotlin for the backend, Retrofit for API calls, Firebase for data storage and authentication, and XML for layout design. 
 Lottie animations are used to add delightful animations to the user interface.
 
+TestCredentials:-
+Email- test123@gmail.com
+Password- test12345
+
 Features:-
 
 Write Your Quotes: Create and save your own quotes effortlessly. Express your thoughts and feelings anytime, anywhere.
