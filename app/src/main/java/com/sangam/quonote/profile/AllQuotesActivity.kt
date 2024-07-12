@@ -178,7 +178,6 @@ class AllQuotesActivity : AppCompatActivity() {
                     myAdapter = MyAdapterQuote(this@AllQuotesActivity, quoteList)
                     recyclerView.adapter = myAdapter
                     progressDialog.dismiss()
-
                     myAdapter.setOnItemClickListener(object : MyAdapterQuote.onItemClickListener {
                         override fun onItemClick(quote: String?) {
                             Log.d("saregama", quote!!)

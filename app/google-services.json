@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "397932476032-2crgtpjlv6kn8henoiuijkocfdee1m33.apps.googleusercontent.com",
+          "client_id": "397932476032-m3q68ohh4lppio6savamja4snvfngeqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sangam.quonote",
+            "certificate_hash": "bf91b830e0c7905425f21f6b769f3863654ba193"
+          }
+        },
+        {
+          "client_id": "397932476032-c6ag6b0lcih6c9nhgbucfdt31jfbis00.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

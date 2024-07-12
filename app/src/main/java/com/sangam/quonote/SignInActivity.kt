@@ -1,23 +1,62 @@
 package com.sangam.quonote
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.sangam.quonote.databinding.ActivitySignInBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.sangam.quonote.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignInBinding
     lateinit var firebaseAuth: FirebaseAuth
     private val emailpattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    private lateinit var client: GoogleSignInClient
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleResults(task)
+            }
+        }
+
+    private fun handleResults(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result
+            if (account != null) {
+                updateUI(account)
+            }
+        } else {
+            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateUI(account: GoogleSignInAccount) {
+        val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
+        firebaseAuth.signInWithCredential(credentials).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "SignIn Successful", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,18 +67,16 @@ class SignInActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.textView2.animate().apply {
-            duration =1000
+            duration = 1000
             rotationXBy(360f)
         }
         firebaseAuth = FirebaseAuth.getInstance()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//            window.decorView.systemUiVisibility = (window.decorView.systemUiVisibility or
-//                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-//            window.statusBarColor = android.graphics.Color.TRANSPARENT
-//        }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+        client = GoogleSignIn.getClient(this, gso)
         if (firebaseAuth.currentUser != null) {
-            val intent = Intent(this, com.sangam.quonote.MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -73,7 +110,6 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
-
         binding.txtsignin.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -100,7 +136,7 @@ class SignInActivity : AppCompatActivity() {
             } else {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this,MainActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         Toast.makeText(this, "SignIn Successful", Toast.LENGTH_SHORT).show()
                         finish()
@@ -112,6 +148,10 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
+//        binding.btnSignInGoogle.setOnClickListener {
+//            val signInClient = client.signInIntent
+//            launcher.launch(signInClient)
+//        }
     }
 
     override fun onBackPressed() {

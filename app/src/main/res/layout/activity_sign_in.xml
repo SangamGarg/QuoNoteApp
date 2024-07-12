@@ -127,6 +127,19 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/btnSignInGoogle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_above="@+id/txtsignin"-->
+<!--                android:layout_marginHorizontal="15dp"-->
+<!--                android:background="@drawable/button_sign"-->
+<!--                android:elevation="30dp"-->
+<!--                android:layout_marginBottom="30dp"-->
+<!--                android:text="Sign In Using Google"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/TextForgotPass"

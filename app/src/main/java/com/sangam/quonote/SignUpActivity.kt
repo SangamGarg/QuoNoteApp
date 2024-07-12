@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sangam.quonote.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.sangam.quonote.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpBinding
@@ -22,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         binding.textView2.animate().apply {
-            duration =1000
+            duration = 1000
             rotationXBy(360f)
         }
 
@@ -67,7 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.emailEt.error = "Enter Valid Email"
                 binding.progreessbarSignUp.visibility = View.GONE
 
-            } else if (phoneno.length !=10) {
+            } else if (phoneno.length != 10) {
                 binding.phoneEt.error = "Enter Valid Phone No"
                 binding.progreessbarSignUp.visibility = View.GONE
 
@@ -120,6 +120,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun clearData() {
         val sharedPreferences = getSharedPreferences("sharedpreference", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()

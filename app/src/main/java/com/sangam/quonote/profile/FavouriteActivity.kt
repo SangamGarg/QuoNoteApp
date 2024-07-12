@@ -163,4 +163,5 @@ class FavouriteActivity : AppCompatActivity() {
             }
         })
     }
+
 }

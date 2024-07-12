@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-
         val currentFragmentId =
             findNavController(R.id.nav_host_fragment_activity_main).currentDestination?.id
 
