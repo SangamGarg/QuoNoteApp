@@ -5,7 +5,7 @@ This app is built using Kotlin for the backend, Retrofit for API calls, Firebase
 Lottie animations are used to add delightful animations to the user interface.
 
 Screenshot:
-![Quonote](https://github.com/SangamGarg/SangamGarg/blob/f3d8a5ffdb465bc399432219cafabe2bcf8b74f2/QuoNote.png)
+<img src="https://github.com/SangamGarg/SangamGarg/blob/f3d8a5ffdb465bc399432219cafabe2bcf8b74f2/QuoNote.png" width="300" alt="Quonote">
 
 TestCredentials:-
 Email- test123@gmail.com
