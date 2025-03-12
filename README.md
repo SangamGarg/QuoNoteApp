@@ -4,6 +4,9 @@ You can also explore a vast collection of quotes from different categories and a
 This app is built using Kotlin for the backend, Retrofit for API calls, Firebase for data storage and authentication, and XML for layout design. 
 Lottie animations are used to add delightful animations to the user interface.
 
+Screenshot:
+![Quonote](https://github.com/SangamGarg/SangamGarg/blob/f3d8a5ffdb465bc399432219cafabe2bcf8b74f2/QuoNote.png)
+
 TestCredentials:-
 Email- test123@gmail.com
 Password- test12345
